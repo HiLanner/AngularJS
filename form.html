@@ -1,0 +1,36 @@
+<html>
+<head>
+  <script src="angular-1.0.7/angular.js"></script>
+   <script type="text/javascript">
+      var TextAreaWithLimitCtrl = function($scope){
+        var MAX_LEN = 20;
+        var WARN_THRESHOLD = 5;
+        $scope.remaining = function(){
+          if(!$scope.message){
+            return MAX_LEN;
+          }else{
+          return MAX_LEN - $scope.message.length;            
+          }
+        };
+        $scope.shouldWarn = function(){
+          return $scope.remaining()<WARN_THRESHOLD;
+        }
+      }
+  </script>
+</head>
+<body ng-app>
+	<div class="contrainer" ng-controller="TextAreaWithLimitCtrl">
+    <span ng-class="{'text-warning':shouldWarn()}">
+      Remaining:{{remaining()}}
+    </span>
+     <div class-"row">
+        <textarea ng-model="message">{{message}}</textarea>
+     </div>
+     <div class="row">
+        <button ng-disabled="!hasVaildLength()" ng-click="send()">send</button>
+        <button ng-click="clear()">clear</button>
+     </div>
+  </div>
+     
+</body>
+</html>
